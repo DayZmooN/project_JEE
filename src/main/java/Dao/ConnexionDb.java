@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnexionDb {
+
     private final String user = "root";
     private final String pass = "";
     private final String utf8 = "?characterEncoding=utf-8";
@@ -35,4 +36,6 @@ public class ConnexionDb {
         return super.toString();
 
     }
+
+
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/")
-public class home extends HttpServlet {
+public class homeServlet extends HttpServlet {
     private final List<User> users =new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class home extends HttpServlet {
         }
         */
 
-        List<User> users = new UserDAO().selectAllUser();
+        List<User> users = new UserDAO().findAll();
         req.setAttribute("usersAll", users);
         req.getRequestDispatcher("WEB-INF/views/home.jsp").forward(req, res);
     }

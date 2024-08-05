@@ -2,6 +2,7 @@ package Servlet;
 
 import Dao.UserDAO;
 import Entity.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,22 +24,22 @@ public class RegisterServlet extends HttpServlet {
         String email =request.getParameter("email");
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
-        User user = new User(firstName,lastName,email,phone,password);
-        users.add(user);
+        String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
+        User user = new User(firstName,lastName,phone,email,hashPass);
+        //users.add(user);
         UserDAO userDAO = new UserDAO();
-        userDAO.addRegister(user);
-
-        // Ajouter la liste des utilisateurs à la requête
+        userDAO.save(user);
+        List<User> users = new UserDAO().findAll();
         request.setAttribute("users", users);
-        request.getRequestDispatcher("/WEB-INF/views/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/contact.jsp").forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    List<User>   users = new UserDAO().findAll();
         request.setAttribute("users", users);
         System.out.println("GET request received at /contact");
         System.out.println("Users added to request: " + users);
-        request.getRequestDispatcher("/WEB-INF/views/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/contact.jsp").forward(request, response);
     }
 }

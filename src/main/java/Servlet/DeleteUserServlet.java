@@ -18,7 +18,7 @@ public class DeleteUserServlet extends HttpServlet {
         try{
             int userId = Integer.parseInt(userIdParam);
             UserDAO userDAO = new UserDAO();
-            userDAO.deleteUser(userId);
+            userDAO.delete(userId);
         }catch(Exception e){
             e.printStackTrace();
         }

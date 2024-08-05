@@ -1,11 +1,8 @@
 package Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 @Entity
+@Table(name="users")
 public class User {
 
     @Id
@@ -17,20 +14,21 @@ public class User {
     private String email;
     private String password;
 
-    // Constructeurs, getters et setters
-    public User() {}
+    public User() {
+    }
 
- public User(String first_name, String last_name, String phone, String email, String password) {
+    public User(String first_name, String last_name, String phone, String email, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone = phone;
         this.email = email;
         this.password = password;
- }
+    }
  public User(Long id)
  {
      this.id = id;
  }
+
 
     public Long getId() {
         return id;
@@ -82,5 +80,10 @@ public class User {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    @Override
+    public String toString() {
+        return this.first_name + " " + this.last_name + " " + this.phone + " " + this.email ;
     }
 }
